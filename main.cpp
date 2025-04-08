@@ -8,7 +8,7 @@ using namespace std;
 int Balls[MAX_NUMBER] = { 0, };
 int MyNumber[6] = { 0, };
 int RandomNumber[6] = { 0, };
-
+int LastRandomNumber = 0;
 void Initialize()
 {
 	srand((unsigned int)time(NULL));
@@ -38,6 +38,7 @@ void SetRandomNumber()
 	{
 		RandomNumber[Index] = Balls[Index];
 	}
+	LastRandomNumber = RandomNumber[-1];
 	sort(RandomNumber, RandomNumber + 6);
 }
 
@@ -54,20 +55,41 @@ void result()
 {
 	cout << endl;
 	int correct = 0;
+	bool IsBonus = 0;
 	for (int i = 0; i < 6; i++)
 	{
-		if (RandomNumber[i] == MyNumber[i])
+		for (int j = 0; j < 6; j++) 
 		{
-			correct += 1;
+			if (RandomNumber[i] == MyNumber[j])
+			{
+				correct += 1;
+				if (MyNumber[j] == LastRandomNumber)
+				{
+					IsBonus = 1;
+				}
+			}
 		}
 	}
+
 	if (correct < 3)
 	{
 		cout << "아쉽게도 낙첨 되셨습니다.";
 	}
-	else 
+	else if (correct == 5 && IsBonus) 
 	{
-		cout << (7 - correct) << "%d등 당첨! 축하드립니다.";
+		cout << "2등 당첨! 축하드립니다.";
+	}
+	else if (correct == 5)
+	{
+		cout << "3등 당첨! 축하드립니다.";
+	}
+	else if (correct == 6) 
+	{
+		cout << "1등 당첨! 축하드립니다.";
+	}
+	else
+	{
+		cout << (8 - correct) << "등 당첨! 축하드립니다.";
 	}
 }
 
