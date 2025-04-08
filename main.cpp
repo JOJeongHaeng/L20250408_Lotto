@@ -38,7 +38,7 @@ void SetRandomNumber()
 	{
 		RandomNumber[Index] = Balls[Index];
 	}
-	LastRandomNumber = RandomNumber[-1];
+	LastRandomNumber = RandomNumber[5];
 	sort(RandomNumber, RandomNumber + 6);
 }
 
